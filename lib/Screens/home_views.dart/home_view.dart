@@ -13,15 +13,15 @@ class _HomeTab extends ConsumerWidget {
         title: const _SearchWidget(),
         actions: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CircleAvatar(
               radius: 30,
-              backgroundColor: Color(0XFFEEBD3E),
+              backgroundColor: const Color(0XFFEEBD3E),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.filter_alt,
                   color: Colors.black,
                 ),

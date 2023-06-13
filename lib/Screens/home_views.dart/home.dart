@@ -1,5 +1,6 @@
 library home_views;
 
+import 'package:adopt_me/Screens/history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -30,9 +31,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const List<Widget> widgetOptions = <Widget>[
       _HomeTab(),
-      Text(
-        'Index 1: Business',
-      ),
+      HistoryView(),
       Text(
         'Index 2: School',
       ),

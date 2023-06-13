@@ -1,14 +1,18 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../main.dart';
+
 final adoptionProvider =
     ChangeNotifierProvider.autoDispose((ref) => AdoptionProvider());
 
 class AdoptionProvider with ChangeNotifier {
+  final firestoreInstance = FirebaseFirestore.instance;
   late ConfettiController controllerCenter;
   RoundedLoadingButtonController btnController =
       RoundedLoadingButtonController();
@@ -21,9 +25,7 @@ class AdoptionProvider with ChangeNotifier {
     _init();
   }
 
-  /// A custom Path to paint stars.
   Path drawStar(Size size) {
-    // Method to convert degree to radians
     double degToRad(double deg) => deg * (pi / 180.0);
 
     const numberOfPoints = 5;
@@ -44,5 +46,29 @@ class AdoptionProvider with ChangeNotifier {
     }
     path.close();
     return path;
+  }
+
+  adoptPet(String name, bool isAdopted, String breed, String image,
+      String collection) {
+    firestoreInstance.collection(collection).doc(name).update({
+      "isAdopted": true,
+      "adoptionTime": DateTime.now(),
+    }).then((_) {
+      firestoreInstance.collection('adoptedPets').add({
+        "breed": breed,
+        "name": name,
+        "image": image,
+        "adoptionTime": DateTime.now(),
+      }).then((_) {
+        btnController.success();
+        const SnackBar snackBar = SnackBar(
+          content: Text(
+            "Congratulations on your new buddy",
+          ),
+        );
+        snackbarKey.currentState?.showSnackBar(snackBar);
+        controllerCenter.play();
+      });
+    }).catchError((e) {});
   }
 }

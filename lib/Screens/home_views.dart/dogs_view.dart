@@ -29,6 +29,8 @@ class _DogsView extends ConsumerWidget {
     } else {
       child = const Text('No data');
     }
-    return Scaffold(body: child);
+    return Scaffold(
+      body: child,
+    );
   }
 }

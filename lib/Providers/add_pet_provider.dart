@@ -31,13 +31,18 @@ class AddPetProvider with ChangeNotifier {
   }
 
   addPet() {
-    firestoreInstance.collection("${_dropdownValue}s").add({
+    firestoreInstance
+        .collection("${_dropdownValue}s")
+        .doc(nameController.text)
+        .set({
       "pet": _dropdownValue,
       "breed": breedController.text,
       "name": nameController.text,
-      "age": int.tryParse(ageController.text),
+      "age": double.tryParse(ageController.text),
       "image": imageUrlController.text,
       "dateTime": DateTime.now(),
+      "isAdopted": false,
+      "fromCollection": "${_dropdownValue}s",
     }).then((_) {
       btnController.success();
     }).catchError((e) {

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+import '../../main.dart';
+
 class DetailsScreen extends ConsumerWidget {
   final Map<String, dynamic> data;
   const DetailsScreen({Key? key, required this.data}) : super(key: key);
@@ -139,7 +141,7 @@ class DetailsScreen extends ConsumerWidget {
                       ),
                       SizedBox(height: windoHeight * 0.03),
                       Text(
-                        "${data["name"]} was found as a Feral Punov and has been little rough with cats but just plaving. He is shy al firstbut warms un auickly loves to snuale in bed. He needs a commited owner to give him the timeand enerav he needs",
+                        "${data["name"]} will play an essential role in human life and planet earth. Ever since an early time, humans have been using animals for their benefit. Earlier, they came in use for transportation purposes. Further, they also come in use for food, hunting and protection.",
                         textAlign: TextAlign.justify,
                         style: const TextStyle(fontSize: 20),
                       ),
@@ -164,17 +166,48 @@ class DetailsScreen extends ConsumerWidget {
                         ],
                       ),
                       SizedBox(height: windoHeight * 0.06),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: RoundedLoadingButton(
-                          controller: adoptionPvd.btnController,
-                          borderRadius: 10,
-                          onPressed: () async {
-                            adoptionPvd.controllerCenter.play();
-                          },
-                          child: const Text('Adopt'),
-                        ),
-                      ),
+                      data['isAdopted'] == false
+                          ? Align(
+                              alignment: Alignment.bottomCenter,
+                              child: RoundedLoadingButton(
+                                controller: adoptionPvd.btnController,
+                                borderRadius: 10,
+                                onPressed: () {
+                                  adoptionPvd.adoptPet(
+                                    data["name"],
+                                    true,
+                                    data["breed"],
+                                    data['image'],
+                                    data['fromCollection'],
+                                  );
+                                },
+                                child: const Text('Adopt'),
+                              ),
+                            )
+                          : Align(
+                              alignment: Alignment.bottomCenter,
+                              child: GestureDetector(
+                                onTap: () {
+                                  const SnackBar snackBar = SnackBar(
+                                    content: Text(
+                                      "Sorry, we currently don't have him",
+                                    ),
+                                  );
+                                  snackbarKey.currentState
+                                      ?.showSnackBar(snackBar);
+                                },
+                                child: Container(
+                                  height: 50,
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Center(
+                                    child: Text('Adopt'),
+                                  ),
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
