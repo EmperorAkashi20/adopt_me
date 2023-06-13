@@ -37,9 +37,9 @@ class AddPetProvider with ChangeNotifier {
       "name": nameController.text,
       "age": int.tryParse(ageController.text),
       "image": imageUrlController.text,
+      "dateTime": DateTime.now(),
     }).then((_) {
       btnController.success();
-      log("collection created");
     }).catchError((e) {
       log(e.toString());
     });

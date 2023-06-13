@@ -8,8 +8,27 @@ class _HomeTab extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: const _SearchWidget(),
+        actions: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: Color(0XFFEEBD3E),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Icon(
+                  Icons.filter_alt,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -38,28 +57,23 @@ class _SearchWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-      height: 36,
+      height: 46,
       child: Container(
         padding: const EdgeInsets.only(right: 10),
         alignment: Alignment.centerRight,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: const Color(0XFFD1F0EC),
-          ),
+          color: const Color(0XFFEAEAEA),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: TextFormField(
           autocorrect: false,
           autofocus: true,
-          cursorColor: Colors.white,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(
-              bottom: 5,
-            ),
+          cursorColor: Colors.black,
+          decoration: const InputDecoration(
             prefixIcon: Icon(
               Icons.search,
               size: 20,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.black,
             ),
             border: InputBorder.none,
           ),

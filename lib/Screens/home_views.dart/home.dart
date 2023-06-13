@@ -5,13 +5,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import '../../Providers/add_pet_provider.dart';
+import '../../Providers/birds_data_provider.dart';
+import '../../Providers/cats_data_provider.dart';
+import '../../Providers/dogs_data_provider.dart';
 import '../../Providers/home_provider.dart';
+import '../../Widgets/pet_card.dart';
 
 part 'tabbar_view.dart';
 
 part 'home_view.dart';
 
 part 'add_pet_sheet.dart';
+
+part 'dogs_view.dart';
+
+part 'cats_view.dart';
+
+part 'birds_view.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -30,6 +40,7 @@ class Home extends ConsumerWidget {
     final homePvd = ref.watch(homeProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: const Color(0XFFEEBD3E),
         currentIndex: homePvd.currentTabIndex,
         onTap: (value) => homePvd.onItemTapped(value),
         items: const <BottomNavigationBarItem>[
@@ -38,12 +49,12 @@ class Home extends ConsumerWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),
