@@ -11,16 +11,22 @@ class _BirdsView extends ConsumerWidget {
       child = StreamBuilder(
           stream: birdsDataPvd.data,
           builder: (context, snapshot) {
-            var docs = snapshot.data?.docs;
-            return ListView.builder(
-              itemCount: docs?.length,
-              itemBuilder: (context, index) {
-                return PetCard(
-                  docs: docs,
-                  index: index,
-                );
-              },
-            );
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.hasData &&
+                snapshot.data != null) {
+              var docs = snapshot.data?.docs;
+              return ListView.builder(
+                itemCount: docs?.length,
+                itemBuilder: (context, index) {
+                  return PetCard(
+                    docs: docs,
+                    index: index,
+                  );
+                },
+              );
+            } else {
+              return const ShimmerLoader();
+            }
           });
     } else if (birdsDataPvd.isLoading) {
       child = const Text("Loading");

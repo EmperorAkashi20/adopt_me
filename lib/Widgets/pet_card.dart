@@ -36,7 +36,6 @@ class PetCard extends StatelessWidget {
                   height: windowHeight * 0.3,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.red,
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       fit: BoxFit.fill,

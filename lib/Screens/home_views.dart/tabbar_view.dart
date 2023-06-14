@@ -82,7 +82,6 @@ class _SearchTabsState extends ConsumerState<_SearchTabs>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          // _AllView(),
           _DogsView(),
           _CatsView(),
           _BirdsView(),

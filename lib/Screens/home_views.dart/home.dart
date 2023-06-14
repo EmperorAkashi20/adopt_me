@@ -1,6 +1,7 @@
 library home_views;
 
 import 'package:adopt_me/Screens/history.dart';
+import 'package:adopt_me/Screens/search.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -11,6 +12,8 @@ import '../../Providers/cats_data_provider.dart';
 import '../../Providers/dogs_data_provider.dart';
 import '../../Providers/home_provider.dart';
 import '../../Widgets/pet_card.dart';
+import '../../Widgets/shimmer.dart';
+import '../../Widgets/theme_fab.dart';
 
 part 'tabbar_view.dart';
 
@@ -31,10 +34,8 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     const List<Widget> widgetOptions = <Widget>[
       _HomeTab(),
+      SearchView(),
       HistoryView(),
-      Text(
-        'Index 2: School',
-      ),
     ];
     final homePvd = ref.watch(homeProvider);
     return Scaffold(
@@ -48,12 +49,12 @@ class Home extends ConsumerWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
+            icon: Icon(Icons.search),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
         ],
       ),

@@ -9,8 +9,11 @@ class _DogsView extends ConsumerWidget {
     Widget child;
     if (dogsDataPvd.hasData) {
       child = StreamBuilder(
-          stream: dogsDataPvd.data,
-          builder: (context, snapshot) {
+        stream: dogsDataPvd.data,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData &&
+              snapshot.data != null) {
             var docs = snapshot.data?.docs;
             return ListView.builder(
               itemCount: docs?.length,
@@ -21,7 +24,11 @@ class _DogsView extends ConsumerWidget {
                 );
               },
             );
-          });
+          } else {
+            return const ShimmerLoader();
+          }
+        },
+      );
     } else if (dogsDataPvd.isLoading) {
       child = const Text("Loading");
     } else if (dogsDataPvd.hasError) {

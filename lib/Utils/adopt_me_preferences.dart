@@ -25,6 +25,20 @@ class AdoptMePreferences {
     log('setBool $key: $value', name: 'ARRE_PREFERENCES');
     return _preferences.setBool(key, value);
   }
+
+  /// Reads a value of any type from persistent storage.
+  Object? get(String key) => _preferences.get(key);
+
+  bool containsKey(String key) => _preferences.containsKey(key);
+
+  /// Removes an entry from persistent storage.
+  Future<bool> remove(String key) {
+    return _preferences.remove(key);
+  }
+
+  Future<bool> clear() {
+    return _preferences.clear();
+  }
 }
 
 abstract class PrefKey {
