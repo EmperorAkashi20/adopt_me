@@ -36,7 +36,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = adoptMePref.getBool(PrefKey.THEME_STATUS) == null ||
+          adoptMePref.getBool(PrefKey.THEME_STATUS) == false
+      ? ThemeMode.light
+      : ThemeMode.dark;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

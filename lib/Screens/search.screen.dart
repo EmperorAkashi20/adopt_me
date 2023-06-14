@@ -12,24 +12,18 @@ class SearchView extends ConsumerWidget {
     Widget child;
     if (searchPvd.hasData &&
         searchPvd.searchController.text.trim().isNotEmpty) {
-      child = ListView.builder(
-        itemCount: searchPvd.data1?.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                    NetworkImage(searchPvd.data1?.elementAt(index)['image'])),
-            title: Text(searchPvd.data1?.elementAt(index)['name']),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(searchPvd.data1?.elementAt(index)['breed'])
-              ],
+      child = Consumer(builder: (context, ref, child) {
+        return const CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 30,
+              ),
             ),
-          );
-        },
-      );
+            _DogsSearchData(),
+          ],
+        );
+      });
     } else if (searchPvd.isLoading) {
       child = const Center(child: CircularProgressIndicator());
     } else if (searchPvd.hasError) {
@@ -49,6 +43,35 @@ class SearchView extends ConsumerWidget {
   }
 }
 
+class _DogsSearchData extends ConsumerWidget {
+  const _DogsSearchData({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchPvd = ref.watch(searchProvider);
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => ListTile(
+          leading: CircleAvatar(
+              radius: 30,
+              backgroundImage:
+                  NetworkImage(searchPvd.data1?.elementAt(index)['image'])),
+          title: Text(searchPvd.data1?.elementAt(index)['name']),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(searchPvd.data1?.elementAt(index)['breed'])
+            ],
+          ),
+        ),
+        childCount: searchPvd.data1?.length,
+      ),
+    );
+  }
+}
+
 class _SearchWidget extends ConsumerWidget {
   const _SearchWidget({
     Key? key,
@@ -57,6 +80,8 @@ class _SearchWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchPvd = ref.watch(searchProvider);
+    final textEditingCtrl = ref.read(searchProvider).searchController;
+    final searchFocusNode = ref.read(searchProvider).searchFocusNode;
     return SizedBox(
       height: 46,
       child: Container(
@@ -67,9 +92,10 @@ class _SearchWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: TextFormField(
-          controller: searchPvd.searchController,
+          controller: textEditingCtrl,
           autocorrect: false,
           autofocus: true,
+          focusNode: searchFocusNode,
           cursorColor: Colors.black,
           style: const TextStyle(color: Colors.black),
           decoration: const InputDecoration(
@@ -85,7 +111,7 @@ class _SearchWidget extends ConsumerWidget {
               'search-debouncer',
               const Duration(milliseconds: 500),
               () {
-                searchPvd.getSuggestion(value);
+                searchPvd.getSearchData(value);
               },
             );
           },

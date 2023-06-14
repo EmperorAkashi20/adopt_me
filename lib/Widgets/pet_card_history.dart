@@ -75,18 +75,31 @@ class PetCardHistory extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Text(
-                                docs?.elementAt(index).data()["breed"],
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            docs?.elementAt(index).data()["breed"],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ],
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 10,
+                        child: Container(
+                          height: windowHeight * 0.05,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: const DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(
+                                  "https://img.freepik.com/free-vector/veterinary-concept-illustration_114360-3007.jpg?w=2000"),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

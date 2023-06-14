@@ -36,7 +36,7 @@ class DogsDataProvider with ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
-      _data = _firestore.collection('Dogs').orderBy('breed').get().asStream();
+      _data = _firestore.collection('Dogs').orderBy('name').get().asStream();
     } catch (e) {
       log(e.toString());
     } finally {

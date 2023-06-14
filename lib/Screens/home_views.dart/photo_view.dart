@@ -20,8 +20,8 @@ class PhotoView extends ConsumerWidget {
           minScale: 0.5,
           child: Image.network(
             imageUrl,
-            width: 200,
-            height: 200,
+            width: double.infinity,
+            height: 400,
             fit: BoxFit.cover,
           ),
         ),

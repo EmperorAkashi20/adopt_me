@@ -16,10 +16,38 @@ class DetailsScreen extends ConsumerWidget {
     final windoHeight = MediaQuery.of(context).size.height;
     final adoptionPvd = ref.watch(adoptionProvider);
     return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+      ),
       body: Hero(
+        flightShuttleBuilder: (flightContext, animation, flightDirection,
+            fromHeroContext, toHeroContext) {
+          switch (flightDirection) {
+            case HeroFlightDirection.push:
+              return Material(
+                color: Colors.transparent,
+                child: ScaleTransition(
+                  scale: animation.drive(
+                    Tween<double>(
+                      begin: 0.0,
+                      end: 1.0,
+                    ).chain(
+                      CurveTween(
+                        curve: Curves.fastOutSlowIn,
+                      ),
+                    ),
+                  ),
+                  child: toHeroContext.widget,
+                ),
+              );
+            case HeroFlightDirection.pop:
+              return Material(
+                  color: Colors.transparent, child: toHeroContext.widget);
+          }
+        },
         tag: data["name"],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Stack(
               children: <Widget>[
@@ -69,19 +97,6 @@ class DetailsScreen extends ConsumerWidget {
                         fit: BoxFit.cover,
                         image: NetworkImage(
                           data["image"],
-                        ),
-                      ),
-                    ),
-                    child: SafeArea(
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Icon(
-                            Icons.arrow_back,
-                          ),
                         ),
                       ),
                     ),
@@ -162,11 +177,14 @@ class DetailsScreen extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: windoHeight * 0.06),
+                    SizedBox(
+                      height: windoHeight * 0.06,
+                    ),
                     data['isAdopted'] == false
                         ? Align(
                             alignment: Alignment.bottomCenter,
                             child: RoundedLoadingButton(
+                              color: Colors.blue,
                               controller: adoptionPvd.btnController,
                               borderRadius: 10,
                               onPressed: () {
@@ -200,7 +218,7 @@ class DetailsScreen extends ConsumerWidget {
                                     color: Colors.grey,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: const Center(
-                                  child: Text('Adopt'),
+                                  child: Text('Adopted'),
                                 ),
                               ),
                             ),

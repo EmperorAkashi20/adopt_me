@@ -36,7 +36,7 @@ class BirdsDataProvider with ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
-      _data = _firestore.collection('Birds').orderBy('breed').get().asStream();
+      _data = _firestore.collection('Birds').orderBy('name').get().asStream();
     } catch (e) {
       log(e.toString());
     } finally {

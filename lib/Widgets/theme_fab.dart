@@ -63,11 +63,11 @@ class _ThemeFabState extends State<ThemeFab>
         animate();
         if (!adoptMePref.containsKey(PrefKey.THEME_STATUS) ||
             adoptMePref.getBool(PrefKey.THEME_STATUS) == false) {
-          MyApp.of(context).changeTheme(ThemeMode.system);
+          MyApp.of(context).changeTheme(ThemeMode.dark);
           adoptMePref.setBool(PrefKey.THEME_STATUS, true);
         } else {
           adoptMePref.setBool(PrefKey.THEME_STATUS, false);
-          MyApp.of(context).changeTheme(ThemeMode.system);
+          MyApp.of(context).changeTheme(ThemeMode.light);
         }
       },
       tooltip: 'Toggle',

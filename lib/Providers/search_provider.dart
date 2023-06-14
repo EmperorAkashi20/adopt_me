@@ -32,12 +32,11 @@ class SearchProvider with ChangeNotifier {
     _isActive = !_isActive;
   }
 
-  void getSuggestion(searchProfile) {
+  void getSearchData(searchQuery) {
     try {
       _isLoading = true;
       notifyListeners();
-      String newVal = searchController.text[0].toUpperCase() +
-          searchController.text.substring(1);
+      String newVal = searchQuery[0].toUpperCase() + searchQuery.substring(1);
       _firestore
           .collection('Dogs')
           .orderBy('name', descending: false)
