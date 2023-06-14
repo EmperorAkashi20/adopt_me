@@ -1,5 +1,4 @@
 import 'package:adopt_me/Utils/adopt_me_preferences.dart';
-import 'package:adopt_me/Utils/styles.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
